@@ -91,11 +91,16 @@ def parse_Transaction(vds):
   for i in xrange(n_vout):
     d['txOut'].append(parse_TxOut(vds))
   d['lockTime'] = vds.read_uint32()
+  if d['version'] > 1:
+    d['tx-comment'] = vds.read_string()
+  else:
+    d['tx-comment'] = ""
   d['__data__'] = vds.input[start_pos:vds.read_cursor]
   return d
 
 def deserialize_Transaction(d, transaction_index=None, owner_keys=None, print_raw_tx=False):
   result = "%d tx in, %d out\n"%(len(d['txIn']), len(d['txOut']))
+  result += "tx-comment:" + d["tx-comment"]
   for txIn in d['txIn']:
     result += deserialize_TxIn(txIn, transaction_index) + "\n"
   for txOut in d['txOut']:

@@ -1,5 +1,6 @@
 Abe: a free block chain browser for Bitcoin-based currencies.
-https://github.com/bitcoin-abe/bitcoin-abe
+Joulecoin fork
+https://github.com/joulecoin/joulecoin-abe
 
     Copyright(C) 2011,2012,2013 by Abe developers.
     License: GNU Affero General Public License, see the file LICENSE.txt.
@@ -143,5 +144,8 @@ would like to be.
 Forum thread: https://bitcointalk.org/index.php?topic=22785.0
 Newbies: https://bitcointalk.org/index.php?topic=51139.0
 
-Donations appreciated: 1PWC7PNHL1SgvZaN7xEtygenKjWobWsCuf (BTC)
+Donations appreciated: 
+1PWC7PNHL1SgvZaN7xEtygenKjWobWsCuf (BTC)
 NJ3MSELK1cWnqUa6xhF2wUYAnz3RSrWXcK (NMC)
+JUYgBUeTG4zC9ANVAmd2teZrPncnwxfJ3A (XJO)
+

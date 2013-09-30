@@ -56,24 +56,8 @@ CONFIG_DEFAULTS = {
 WORK_BITS = 304  # XXX more than necessary.
 
 CHAIN_CONFIG = [
-    {"chain":"Bitcoin",
-     "code3":"BTC", "address_version":"\x00", "magic":"\xf9\xbe\xb4\xd9"},
-    {"chain":"Testnet",
-     "code3":"BC0", "address_version":"\x6f", "magic":"\xfa\xbf\xb5\xda"},
-    {"chain":"Namecoin",
-     "code3":"NMC", "address_version":"\x34", "magic":"\xf9\xbe\xb4\xfe"},
-    {"chain":"Weeds", "network":"Weedsnet",
-     "code3":"WDS", "address_version":"\xf3", "magic":"\xf8\xbf\xb5\xda"},
-    {"chain":"BeerTokens",
-     "code3":"BER", "address_version":"\xf2", "magic":"\xf7\xbf\xb5\xdb"},
-    {"chain":"SolidCoin",
-     "code3":"SCN", "address_version":"\x7d", "magic":"\xde\xad\xba\xbe"},
-    {"chain":"ScTestnet",
-     "code3":"SC0", "address_version":"\x6f", "magic":"\xca\xfe\xba\xbe"},
-    {"chain":"Worldcoin",
-     "code3":"WDC", "address_version":"\x49", "magic":"\xfb\xc0\xb6\xdb"},
-    #{"chain":"",
-    # "code3":"", "address_version":"\x", "magic":""},
+    {"chain":"Joulecoin",
+     "code3":"XJO", "address_version":"\x2b", "magic":"\xa5\xc0\x79\x55"},
     ]
 
 NULL_HASH = "\0" * 32
@@ -221,8 +205,9 @@ class DataStore(object):
             conn = store.module.connect()
         else:
             try:
+		print repr(cargs)
                 conn = store._connect(cargs)
-            except UnicodeError:
+            except: # (UnicodeError, TypeError):
                 # Perhaps this driver needs its strings encoded.
                 # Python's default is ASCII.  Let's try UTF-8, which
                 # should be the default anyway.
@@ -232,12 +217,16 @@ class DataStore(object):
                 def to_utf8(obj):
                     if isinstance(obj, dict):
                         for k in obj.keys():
-                            obj[k] = to_utf8(obj[k])
+                            xkey = to_utf8(k)
+                            xval = to_utf8(obj[k])
+                            del obj[k]
+                            obj[xkey] = xval
                     if isinstance(obj, list):
                         return map(to_utf8, obj)
                     if isinstance(obj, unicode):
                         return obj.encode(enc)
                     return obj
+		print repr(to_utf8(cargs))
                 conn = store._connect(to_utf8(cargs))
                 store.log.info("Connection required conversion to UTF-8")
 
